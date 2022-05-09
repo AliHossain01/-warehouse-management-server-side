@@ -49,6 +49,42 @@ async function run() {
             res.send(result);
         });
 
+
+        //Quantity update
+        app.put("/inventory/:id", async (req, res) => {
+            const id = req.params.id;
+            const deliveredQuantity = req.body;
+            console.log(deliveredQuantity);
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+
+            const updateDoc = {
+                $set: {
+                    quantity: deliveredQuantity.newQuantity,
+                }
+            };
+
+            const result = await serviceCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        });
+
+        app.put("/inventory/:id", async (req, res) => {
+            const id = req.params.id;
+            const setQuantity = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+
+            const updateDoc = {
+                $set: {
+                    quantity: setQuantity.newQuantity,
+                }
+            };
+
+            const result = await serviceCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        });
+
+
     }
     finally {
 
