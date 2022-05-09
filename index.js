@@ -34,6 +34,18 @@ async function run() {
             res.send(service);
         });
 
+        //myitems
+        app.get('/myitems', async (req, res) => {
+            const email = req.query.email
+            // console.log(email);
+            const query = { email: email };
+            const cursor = serviceCollection.find(query);
+            const services = await cursor.toArray();
+            res.send(services);
+        });
+
+
+
         // POST
         app.post('/inventory', async (req, res) => {
             const newService = req.body;
